@@ -2,12 +2,15 @@ import { Router } from 'express'
 import db from '../../db/models/index.js'
 
 const Products = db.Products
+const Categories = db.Categories
 
 const router = Router()
 
 router.get('/', async(req, res, next) => {
     try {
-        const data = await Products.findAll()
+        const data = await Products.findAll({
+            include: Categories
+        })
         res.send(data)
     } catch (error) {
         res.status(500).send(error)
