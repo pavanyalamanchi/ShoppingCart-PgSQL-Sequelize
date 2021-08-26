@@ -3,13 +3,15 @@ import db from '../../db/models/index.js'
 
 const Products = db.Products
 const Categories = db.Categories
+const Users = db.Users
+const Comments = db.Comments
 
 const router = Router()
 
 router.get('/', async(req, res, next) => {
     try {
         const data = await Products.findAll({
-            include: Categories
+            include: [Categories, Users]
         })
         res.send(data)
     } catch (error) {
